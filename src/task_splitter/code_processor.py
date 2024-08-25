@@ -2,15 +2,19 @@ import os
 import re
 import yaml
 
-def extract_functions(file_content):
+def __extract_functions(file_content):
+    
     # Regular expression to match C function definitions
-    function_pattern = re.compile(r"(^\w[\w\s\*]+)\s+(\w+)\s*\(([^)]*)\)\s*(\{[^{}]*\})", re.MULTILINE)
+    REGULAR_EXPRESSION_C = r"(^\w[\w\s\*]+)\s+(\w+)\s*\(([^)]*)\)\s*(\{[^{}]*\})"
+    REGULAR_EXPRESSION_ANNOTATION = r"(^\@[A-Z]\w+){1}(\(.+\))*"
+    
+    
+    function_pattern = re.compile(REGULAR_EXPRESSION_C, re.MULTILINE)
     function_matches = function_pattern.finditer(file_content)
 
-    annotation_pattern = re.compile(r"(\@[A-Z]\w+){1}(\(.+\))*")
+    annotation_pattern = re.compile(REGULAR_EXPRESSION_ANNOTATION, re.MULTILINE)
 
     functions = []
-    function_contents = []
     positions = []
 
     for match in function_matches:
@@ -42,55 +46,57 @@ def extract_functions(file_content):
                     }
                 )
         
-        
+
         func_return_type = match.group(1).strip()
         func_name = match.group(2)
         func_args = match.group(3).strip()
+        func_content = match.group(4).strip()
         
-        function_contents.append(
-            f"{func_return_type} {func_name}({func_args}) {match.group(4)}"
-        )
+        # function_contents.append(
+        #     f"{func_return_type} {func_name}({func_args}) {match.group(4)}"
+        # )
         functions.append({
             "name": func_name,
             "return_type": func_return_type,
             "args": func_args,
-            "annotations": annotations
+            "annotations": annotations,
+            "content": func_content
         })
 
+    return functions
 
-    return functions, function_contents
-
-def create_independent_files(functions, function_contents, output_dir):
-    for i, function in enumerate(functions):
-        filename = f"{function['name']}.c"
+def create_independent_files(functions, output_dir):
+    
+    for fun in functions:
+        
+        function_content = f"{fun['return_type']} {fun['name']}({fun['args']}) {fun['content']}"
+        
+        filename = f"{fun['name']}.c"
         with open(output_dir + filename, "w") as f:
+            
             # Write the original function
-            f.write(function_contents[i])
+            f.write(function_content)
             f.write("\n")
             
             # Add a main function to call the function
             main_function = f"""
-            int main() {{
-                // Assuming that the function has no return value, or you can modify it to handle return values.
-                {function['name']}({', '.join(['0' for _ in function['args'].split(',')])});
-                return 0;
-            }}
+int main() {{
+    // Assuming that the function has no return value
+    {fun['name']}({', '.join(['0' for _ in fun['args'].split(',')])});
+    return 0;
+}}
             """
             f.write(main_function)
-
-def split_functions_into_files(input_file, output_dir):
+            
+def extract_functions_from_file(input_file):
+    
     with open(input_file, "r") as file:
         file_content = file.read()
+        
+    functions = __extract_functions(file_content)
+    return functions
 
-    functions, function_contents = extract_functions(file_content)
+def save_functions_to_yaml(functions, output_file):
     
-    with open(output_dir + "config.yaml","w") as outfile:
-        yaml.safe_dump(functions, outfile, default_style=None, default_flow_style=False, sort_keys=False)
-    
-    create_independent_files(functions, function_contents, output_dir)
-
-if __name__ == "__main__":
-    input_file = "src/tasks.c"  # Replace this with your actual file name
-    output_dir = "build/"
-    split_functions_into_files(input_file, output_dir)
-    print("Functions have been split into separate files with their own main functions.")
+    with open(output_file, "w") as file:
+        yaml.dump(functions, file, sort_keys=False)
