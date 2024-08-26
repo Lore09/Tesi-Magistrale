@@ -69,24 +69,11 @@ def create_independent_files(functions, output_dir):
     
     for fun in functions:
         
-        function_content = f"{fun['return_type']} {fun['name']}({fun['args']}) {fun['content']}"
-        
         filename = f"{fun['name']}.c"
         with open(output_dir + filename, "w") as f:
             
-            # Write the original function
-            f.write(function_content)
-            f.write("\n")
-            
-            # Add a main function to call the function
-            main_function = f"""
-int main() {{
-    // Assuming that the function has no return value
-    {fun['name']}({', '.join(['0' for _ in fun['args'].split(',')])});
-    return 0;
-}}
-            """
-            f.write(main_function)
+            # Write the code
+            f.write(fun["code"])
             
 def extract_functions_from_file(input_file):
     
