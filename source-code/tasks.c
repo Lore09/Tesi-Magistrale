@@ -5,7 +5,7 @@ float get_average_rand(float values[]){
 }
 @ModuleName("Tattitto")
 @TaskCloud
-@Libdeps("math.h")
+@LibDeps("math.h")
 int is_even(int number){
     if(number%2==0)return 1;
     else return 0;
