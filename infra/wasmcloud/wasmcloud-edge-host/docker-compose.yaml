@@ -1,0 +1,23 @@
+services:
+  nats:
+    image: nats:alpine
+    container_name: nats
+    restart: always
+    command: -c /etc/nats/nats.conf
+    ports:
+      - "4222:4222" # client port
+      - "8222:8222" # monitoring port
+    volumes:
+      - ./nats-leaf.conf:/etc/nats/nats.conf
+
+  wasmcloud:
+    image: ghcr.io/wasmcloud/wasmcloud:1.4.0
+    container_name: wasmcloud
+    restart: always
+    environment:
+      - WASMCLOUD_NATS_HOST=nats
+      - WASMCLOUD_NATS_PORT=4222
+      - WASMCLOUD_RPC_TIMEOUT_MS=4000
+      - WASMCLOUD_LABEL_host-type=edge
+    depends_on:
+      - nats
