@@ -3,6 +3,7 @@ services:
     image: nats:alpine
     container_name: nats
     restart: always
+    network_mode: bridge
     command: -c /etc/nats/nats.conf
     ports:
       - "4222:4222" # client port
@@ -13,11 +14,21 @@ services:
   wasmcloud:
     image: ghcr.io/wasmcloud/wasmcloud:1.4.0
     container_name: wasmcloud
+    network_mode: bridge
     restart: always
     environment:
-      - WASMCLOUD_NATS_HOST=nats
+      - WASMCLOUD_NATS_HOST=192.168.2.1
       - WASMCLOUD_NATS_PORT=4222
       - WASMCLOUD_RPC_TIMEOUT_MS=4000
       - WASMCLOUD_LABEL_host-type=edge
+      - WASMCLOUD_STRUCTURED_LOGGING_ENABLED=false
+      - WASMCLOUD_LOG_LEVEL=INFO
+      - WASMCLOUD_JS_DOMAIN=default
+      - WASMCLOUD_LATTICE=default
+      - WASMCLOUD_LATTICE_PREFIX=default
+      - WASMCLOUD_CTL_TOPIC_PREFIX=wasmbus.ctl
+      - WASMCLOUD_SECRETS_TOPIC=wasmcloud.secrets
+    ports:
+      - '8000:8000'
     depends_on:
       - nats
