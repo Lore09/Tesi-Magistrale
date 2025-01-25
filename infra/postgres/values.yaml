@@ -1,0 +1,4 @@
+auth:
+  username: "wasmcloud"
+  password: "wasmcloud"
+  database: "wasmcloud"
