@@ -42,7 +42,7 @@ wadm:
       tag: v0.15.0
     config:
       nats:
-        server: "nats://10.43.80.129"
+        server: "nats://nats.wasmcloud.svc.cluster.local"
         # creds:
         #   jwt: ""
         #   seed: ""
@@ -75,8 +75,6 @@ hostConfig:
   # # Number of hosts (pods). Defaults to 1.
   # hostReplicas: 1
   # Which version of wasmCloud to use; defaults to "latest"
-  version: "1.2.1"
-  # registryCredentialsFile: config.json
   # natsCredentialsFile: secret.yaml
   resources:
     nats: {}
