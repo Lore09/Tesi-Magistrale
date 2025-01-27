@@ -1,3 +1,5 @@
+# PELATO: Progettazione ed Esecuzione di Lifecycle Automatizzati per Tecnologie WebAssembly ed Orchestrazione 
+
 # Infrastuttura
 
 L'infrastuttura simula un flusso IoT ed è composta da:
