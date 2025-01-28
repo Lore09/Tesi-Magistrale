@@ -7,7 +7,7 @@ L'infrastuttura simula un flusso IoT ed è composta da:
 - ambiente Edge, semplice macchina Linux con docker compose, Wasmcloud e NATS Leaf come docker container
 - dispositivi IoT collegati all'ambiente Edge
 
-![infra](/project/img/infra.png)
+![infra](/res/img/infra.png)
 
 # Pipeline
 
@@ -157,4 +157,4 @@ spec:
 Il target del deployment viene selezionato tramite il campo `spreadscaler`, che indirizza i componenti nell'host con il tag corrispondente.
 
 ### Pipeline scheme
-![pipeline](project/img/pipeline.png)
+![pipeline](res/img/pipeline.png)
