@@ -1,16 +1,45 @@
-import src.task_splitter.code_processor as splitter
-import src.task_splitter.code_generator as generator
+import argparse
+import src
 
-input_file = "source-code/tasks.c"  # Replace this with your actual file name
-output_dir = "build/"
 
-functions = splitter.extract_functions_from_file(input_file)
-print(f"Found {len(functions)} functions in the file.")
+def main():
+    parser = argparse.ArgumentParser(
+        description="Generate, build and deploy WASM components written in go"
+    )
+    
+    subparsers = parser.add_subparsers(dest="command", help="Command list")
 
-generator.build_code_from_functions(functions)
-print("Code has been generated for each function.")
+    parser_generate = subparsers.add_parser("gen", help="Generate Go code")
+    parser_generate.add_argument("dir", type=str, help="Project directory")
 
-splitter.create_independent_files(functions, output_dir)
-print("Functions have been split into separate files with their own main functions.")
+    parser_build = subparsers.add_parser("build", help="Build WASM component")
+    parser_build.add_argument("dir", type=str, help="Project directory")
 
-splitter.save_functions_to_yaml(functions, output_dir + "functions.yaml")
+    parser_deploy = subparsers.add_parser("deploy", help="Deploy WASM components")
+    parser_deploy.add_argument("dir", type=str, help="Project directory")
+    
+    parser_all = subparsers.add_parser("crazy", help="Everything above")
+    parser_all.add_argument("dir", type=str, help="Project directory")
+
+    # Parsing degli argomenti
+    args = parser.parse_args()
+    
+    # Setup Pelato
+    pelato = src.Pelato()
+
+    # Esecuzione del comando specificato
+    if args.command == "gen":
+        pelato.generate()
+    elif args.command == "build":
+        pelato.build()
+    elif args.command == "deploy":
+        pelato.deploy()
+    elif args.command == "crazy":
+        pelato.generate()
+        pelato.build()
+        pelato.deploy()
+    else:
+        parser.print_help()
+
+if __name__ == "__main__":
+    main()
