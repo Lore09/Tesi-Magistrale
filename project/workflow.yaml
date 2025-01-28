@@ -1,0 +1,11 @@
+tasks:
+  - name: Data Aggregation                # Displayed name
+    type: processor_nats                      # Used to select template
+    code: task1.go                    # Go code file inside tasks/ dir
+    target:                               # Where the component will be deployed
+      - edge
+      - cloud
+    source_topic: temp_sensor             # Source NATS topic
+    dest_topic: aggregated_data           # Destination NATS topic
+    component_name: data_aggregation      # Component name displayed in the OCI artifact
+    version: 1.0.0
