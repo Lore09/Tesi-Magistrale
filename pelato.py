@@ -1,7 +1,6 @@
 import argparse
 import src
 
-
 def main():
     parser = argparse.ArgumentParser(
         description="Generate, build and deploy WASM components written in go"
@@ -29,15 +28,15 @@ def main():
 
     # Esecuzione del comando specificato
     if args.command == "gen":
-        pelato.generate()
+        pelato.generate(args.dir)
     elif args.command == "build":
-        pelato.build()
+        pelato.build(args.dir)
     elif args.command == "deploy":
-        pelato.deploy()
+        pelato.deploy(args.dir)
     elif args.command == "crazy":
-        pelato.generate()
-        pelato.build()
-        pelato.deploy()
+        pelato.generate(args.dir)
+        pelato.build(args.dir)
+        pelato.deploy(args.dir)
     else:
         parser.print_help()
 
