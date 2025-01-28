@@ -1,10 +1,10 @@
 from dotenv import load_dotenv
 import os
 
+import src.code_generator.generator as code_generator
+
 class Pelato:
-    def __init__(self, project_dir):
-        
-        self.project_dir = project_dir
+    def __init__(self):
         
         self.setup_vars()
         
@@ -15,14 +15,15 @@ class Pelato:
         self.reg_user = os.getenv('REGISTRY_USER')
         self.reg_pass = os.getenv('REGISTRY_PASSWORD')
         
-    def generate(self):
-        print(f"Generating Go code for project {self.project_dir}")
+    def generate(self, project_dir):
+        print(f"Generating Go code for project {project_dir}")
+        code_generator.generate(project_dir)
         
-    def build(self):
-        print(f"Building WASM component for project {self.project_dir}")
+    def build(self, project_dir):
+        print(f"Building WASM component for project {project_dir}")
         
-    def deploy(self):
-        print(f"Deploying WASM components for project {self.project_dir}")
+    def deploy(self, project_dir):
+        print(f"Deploying WASM components for project {project_dir}")
         
-    def all(self):
-        print(f"Doing everything for project {self.project_dir}")
+    def all(self, project_dir):
+        print(f"Doing everything for project {project_dir}")
