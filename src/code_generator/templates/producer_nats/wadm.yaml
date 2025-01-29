@@ -7,16 +7,20 @@ spec:
     - name: {{ component_name }}
       type: component
       properties:
-        image: 
+        image: "{{ registry_url }}/{{ component_name }}:{{ version }}"
         id: producer
-        # config: 
-        #   - name: nats-topic
-        #     properties: 
-        #       dest-topic: wasmcloud.echo.reply
       traits:
         - type: spreadscaler
           properties:
             instances: 1
+            spread:
+            {%- set weight = (100 / (targets | length)) | int -%}
+            {%- for target in targets -%}
+            - name: {{ target }}
+              weight: {{ weight }}
+              requirements:
+                host-type: {{ target }}
+            {%- endfor -%}
         - type: link
           properties:
             target: nats-producer
@@ -28,7 +32,7 @@ spec:
     - name: nats-producer
       type: capability
       properties:
-        image: "{{ registry_url }}/{{ component_name }}:{{ version }}"
+        image: ghcr.io/wasmcloud/messaging-nats:0.23.1
       traits:
         - type: link
           properties:
