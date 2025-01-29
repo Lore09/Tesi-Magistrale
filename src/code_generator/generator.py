@@ -18,7 +18,7 @@ def __remove_dir_if_exists(dir_path):
         if os.path.isdir(dir_path):
             shutil.rmtree(dir_path)
 
-def generate(project_dir):
+def generate(project_dir, registry_url):
     
     # Parsing del file di configurazione
     config = __parse_yaml(f"{project_dir}/workflow.yaml")
@@ -36,5 +36,17 @@ def generate(project_dir):
     
     # for each task in the workflow
     for task in config['tasks']:
-        template_compiler.handle_task(task, output_dir)
-    
+        
+        try:
+            
+            task['registry_url'] = registry_url
+            template_compiler.handle_task(task, output_dir)
+
+            # Copy the code file to the output folder
+            shutil.copy2(f"{project_dir}/tasks/{task['code']}", f"{output_dir}/{task['component_name']}/{task['code']}")
+            
+            print(f" - Task {task['component_name']} generated")
+            
+        except Exception as e:
+            logging.error(f"Error generating task {task['component_name']}: {e}")
+            continue
