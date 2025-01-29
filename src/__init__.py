@@ -2,6 +2,7 @@ import os
 import src.code_generator.generator as code_generator
 import src.wasm_builder.build as wasm_builder
 import src.component_deploy.deploy as deployer
+import time
 
 class Pelato:
     def __init__(self):
@@ -33,5 +34,9 @@ class Pelato:
         print('-------------------------------------------')
         
         self.generate(project_dir)
+        time.sleep(1)
+        
         self.build(project_dir)
+        time.sleep(1)
+        
         self.deploy(project_dir)

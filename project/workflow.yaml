@@ -1,7 +1,7 @@
 project_name: Test
 tasks:
   - name: Data Aggregation
-    type: producer_nats
+    type: processor_nats
     code: task1.go
     targets:
       - edge
