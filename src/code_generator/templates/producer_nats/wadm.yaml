@@ -15,12 +15,12 @@ spec:
             instances: 1
             spread:
             {%- set weight = (100 / (targets | length)) | int -%}
-            {%- for target in targets -%}
+            {% for target in targets %}
             - name: {{ target }}
               weight: {{ weight }}
               requirements:
                 host-type: {{ target }}
-            {%- endfor -%}
+            {% endfor %}
         - type: link
           properties:
             target: nats-producer
@@ -49,12 +49,12 @@ spec:
             instances: 1
             spread:
             {%- set weight = (100 / (targets | length)) | int -%}
-            {%- for target in targets -%}
+            {% for target in targets %}
             - name: {{ target }}
               weight: {{ weight }}
               requirements:
                 host-type: {{ target }}
-            {%- endfor -%}
+            {% endfor %}
 
     - name: httpserver
       type: capability
@@ -78,9 +78,9 @@ spec:
             instances: 1
             spread:
             {%- set weight = (100 / (targets | length)) | int -%}
-            {%- for target in targets -%}
+            {% for target in targets %}
             - name: {{ target }}
               weight: {{ weight }}
               requirements:
                 host-type: {{ target }}
-            {%- endfor -%}
+            {% endfor %}
