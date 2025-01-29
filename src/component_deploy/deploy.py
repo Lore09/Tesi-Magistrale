@@ -3,39 +3,39 @@ import os
 import logging
 import yaml
 
-def build_project(project_dir, reg_user, reg_pass, detached):
-    
+def deploy_components(project_dir, nats_host, nats_port, detached):
+
     # Check if the project directory is valid
     if not os.path.exists(f"{project_dir}/gen"):
         logging.error(f"Project directory is not valid")
         return
     
-    print('Building WASM components')
+    print('Deploying WASM components')
     
     # Docker client
     client = docker.from_env()
     
     # Build the images for the project if they don't exist
     try:
-        client.images.get("wash-build-image:latest")
+        client.images.get("wash-deploy-image:latest")
     except docker.errors.ImageNotFound:
         
-        print(' - Building wash-build-image from Dockerfile...')
+        print(' - Building wash-deploy-image from Dockerfile...')
         client.images.build(
-            path="src/wasm_builder/docker",
-            dockerfile="build.Dockerfile",
-            tag="wash-build-image:latest"
+            path="src/component_deploy/docker",
+            dockerfile="deploy.Dockerfile",
+            tag="wash-deploy-image:latest"
         )
         
     try:
         wait_list = []
         
         for task in os.listdir(f"{project_dir}/gen"):
-            __build_wasm(f"{project_dir}/gen/{task}", client, reg_user, reg_pass, detached, wait_list)
+            __deploy_wadm(f"{project_dir}/gen/{task}", client, nats_host, nats_port, detached, wait_list)
             
         if detached == 'True':
             
-            print('Waiting for build to finish...')
+            print('Waiting for deployment...')
             for container in wait_list:
                 try:
                     client.containers.get(container).wait()
@@ -43,27 +43,25 @@ def build_project(project_dir, reg_user, reg_pass, detached):
                     continue
         
     except Exception as e:
-        logging.error(f"Error building project: {e}")
+        logging.error(f"Error deploying project: {e}")
         return
     
     print("Project built successfully")
     
-def __build_wasm(task_dir, client, reg_user, reg_pass, detached, wait_list):
+def __deploy_wadm(task_dir, client, nats_host, nats_port, detached, wait_list):
     
     wadm = __parse_yaml(f"{task_dir}/wadm.yaml")
     
     path = os.path.abspath(task_dir)
     
-    oci_url = wadm['spec']['components'][0]['properties']['image']
-    name = wadm['spec']['components'][0]['name'] + '-build'
+    name = wadm['spec']['components'][0]['name'] + '-deploy'
     
     # Build the wasm module
-    print(f" - Building WASM module {oci_url}")
+    print(f" - Deploying WASM module {name}")
     container = client.containers.run(
-        "wash-build-image:latest",
-        environment=[f'REGISTRY={oci_url}',
-                     f'WASH_REG_USER={reg_user}',
-                     f'WASH_REG_PASSWORD={reg_pass}'],
+        "wash-deploy-image:latest",
+        environment=[f'WASMCLOUD_CTL_HOST={nats_host}',
+                     f'WASMCLOUD_CTL_PORT={nats_port}'],
         volumes={path: {'bind': '/app', 'mode': 'rw'}},
         remove=True,
         detach=True,

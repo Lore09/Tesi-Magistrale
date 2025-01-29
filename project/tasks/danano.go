@@ -6,7 +6,7 @@ import (
 
 func exec_task(arg string) string{
 
-	response := "Ciao danano "  + arg
+	response :=  "" + arg
 
 	return response
 }

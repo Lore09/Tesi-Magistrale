@@ -7,7 +7,7 @@ spec:
     - name: {{ component_name }}
       type: component
       properties:
-        image: "{{ registry_url }}/{{ component_name }}:{{ version }}"
+        image: {{ registry_url }}/{{ component_name }}:{{ version }}
         id: stream
       traits:
         - type: link

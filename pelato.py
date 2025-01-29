@@ -1,7 +1,11 @@
 import argparse
 import src
+from dotenv import load_dotenv
+
 
 def main():
+    load_dotenv()
+    
     parser = argparse.ArgumentParser(
         description="Generate, build and deploy WASM components written in go"
     )

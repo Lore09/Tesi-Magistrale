@@ -16,7 +16,7 @@ nast server check connection
 
 Creare l'host wasmcloud con il comando
 ```bash
-wash up -d
+wash up -d --multi-local
 ```
 Controllare il corretto deployment dell'host
 ```bash
