@@ -7,7 +7,7 @@ L'infrastuttura simula un flusso IoT ed è composta da:
 - ambiente Edge, semplice macchina Linux con docker compose, Wasmcloud e NATS Leaf come docker container
 - dispositivi IoT collegati all'ambiente Edge
 
-![infra](/project/img/infra.png)
+![infra](/res/img/infra.png)
 
 # Pipeline
 
@@ -35,7 +35,7 @@ Nel file workflow vengono descritti i vari componenti, un esempio potrebbe esser
 ```yaml
 tasks:
   - name: Data Aggregation                # Displayed name
-    type: processing                      # Used to select template
+    type: processor_nats                      # Used to select template
     code: aggregate.go                    # Go code file inside tasks/ dir
     target:                               # Where the component will be deployed
       - edge
@@ -68,9 +68,9 @@ func exec_task(arg string) string{
 ### Generazione del codice
 
 Il parser utilizza il campo `type` del workflow per selezionare il corretto template fra quelli implementati (per ora)
-- producer -- produzione di dati e scrittura di essi in un topic NATS
-- processor -- lettura di dati da un topic, processamento dei dati e scrittura su un altro topic
-- dbsync -- lettura di dati da un topic e scrittura su un DB (Postgres)
+- producer_nats -- produzione di dati e scrittura di essi in un topic NATS
+- processor_nats -- lettura di dati da un topic, processamento dei dati e scrittura su un altro topic
+- dbsync_nats -- lettura di dati da un topic e scrittura su un DB (Postgres)
 
 Viene sostituito il file delle task con quello del template, i campi del file `workflow` vengono utilizzati per compilare il file `wadm.yaml`.
 
@@ -157,4 +157,4 @@ spec:
 Il target del deployment viene selezionato tramite il campo `spreadscaler`, che indirizza i componenti nell'host con il tag corrispondente.
 
 ### Pipeline scheme
-![pipeline](project/img/pipeline.png)
+![pipeline](res/img/pipeline.png)
