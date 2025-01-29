@@ -10,12 +10,12 @@ tasks:
     dest_topic: aggregated_data
     component_name: data_aggregation
     version: 1.0.0
-  - name: Daniele pelato
+  - name: Aiutatemi
     type: processor_nats
     code: danano.go
     targets:
       - edge
-    source_topic: temp_sensor
-    dest_topic: sexo
-    component_name: liscio
+    source_topic: test
+    dest_topic: temp_sensor
+    component_name: test_producer
     version: 1.0.0
