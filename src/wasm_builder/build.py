@@ -10,6 +10,8 @@ def build_project(project_dir, reg_user, reg_pass, detached):
         logging.error(f"Project directory is not valid")
         return
     
+    print('Building WASM components')
+    
     # Docker client
     client = docker.from_env()
     
@@ -17,6 +19,8 @@ def build_project(project_dir, reg_user, reg_pass, detached):
     try:
         client.images.get("wash-build-image:latest")
     except docker.errors.ImageNotFound:
+        
+        print(' - Building wash-build-image from Dockerfile...')
         client.images.build(
             path="src/wasm_builder/docker",
             dockerfile="build.Dockerfile",
@@ -24,21 +28,34 @@ def build_project(project_dir, reg_user, reg_pass, detached):
         )
         
     try:
+        wait_list = []
+        
         for task in os.listdir(f"{project_dir}/gen"):
-            __build_wasm(f"{project_dir}/gen/{task}", client, reg_user, reg_pass, detached)
+            __build_wasm(f"{project_dir}/gen/{task}", client, reg_user, reg_pass, detached, wait_list)
+            
+        if detached == 'True':
+            
+            print('Waiting for build to finish...')
+            for container in wait_list:
+                try:
+                    client.containers.get(container).wait()
+                except Exception:
+                    continue
+        
     except Exception as e:
         logging.error(f"Error building project: {e}")
         return
     
     print("Project built successfully")
     
-def __build_wasm(task_dir, client, reg_user, reg_pass, detached):
+def __build_wasm(task_dir, client, reg_user, reg_pass, detached, wait_list):
     
     wadm = __parse_yaml(f"{task_dir}/wadm.yaml")
     
     path = os.path.abspath(task_dir)
     
     oci_url = wadm['spec']['components'][0]['properties']['image']
+    name = wadm['spec']['components'][0]['name'] + '-build'
     
     # Build the wasm module
     print(f" - Building WASM module {oci_url}")
@@ -49,11 +66,14 @@ def __build_wasm(task_dir, client, reg_user, reg_pass, detached):
                      f'WASH_REG_PASSWORD={reg_pass}'],
         volumes={path: {'bind': '/app', 'mode': 'rw'}},
         remove=True,
-        detach=True
+        detach=True,
+        name=name
     )
     
     if detached == 'False':
         container.wait()
+    else:
+        wait_list.append(name)
     
 
 def __parse_yaml(yaml_file):
