@@ -17,7 +17,7 @@ def main():
     parser_deploy = subparsers.add_parser("deploy", help="Deploy WASM components")
     parser_deploy.add_argument("dir", type=str, help="Project directory")
     
-    parser_all = subparsers.add_parser("crazy", help="Everything above")
+    parser_all = subparsers.add_parser("brush", help="Everything above")
     parser_all.add_argument("dir", type=str, help="Project directory")
 
     # Parsing degli argomenti
@@ -33,10 +33,8 @@ def main():
         pelato.build(args.dir)
     elif args.command == "deploy":
         pelato.deploy(args.dir)
-    elif args.command == "crazy":
-        pelato.generate(args.dir)
-        pelato.build(args.dir)
-        pelato.deploy(args.dir)
+    elif args.command == "brush":
+        pelato.all(args.dir)
     else:
         parser.print_help()
 
