@@ -1,0 +1,57 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: {{ component_name }}
+spec:
+  components:
+    - name: {{ component_name }}
+      type: component
+      properties:
+        image: "{{ registry_url }}/{{ component_name }}:{{ version }}"
+        id: stream
+      traits:
+        - type: link
+          properties:
+            target: nats-processor
+            namespace: wasmcloud
+            package: messaging
+            interfaces: [consumer]
+        - type: spreadscaler
+          properties:
+            instances: 1
+            spread:
+            {%- set weight = (100 / (targets | length)) | int -%}
+            {% for target in targets %}
+            - name: {{ target }}
+              weight: {{ weight }}
+              requirements:
+                host-type: {{ target }}
+            {% endfor %}
+
+    # Add a capability provider that implements `wasmcloud:messaging` using NATS
+    - name: nats-processor
+      type: capability
+      properties:
+        image: ghcr.io/wasmcloud/messaging-nats:0.23.1
+      traits:
+        - type: link
+          properties:
+            target: {{ component_name }}
+            namespace: wasmcloud
+            package: messaging
+            interfaces: [handler]
+            source_config:
+              - name: simple-subscription
+                properties:
+                  subscriptions: {{ source_topic}}
+        - type: spreadscaler
+          properties:
+            instances: 1
+            spread:
+            {%- set weight = (100 / (targets | length)) | int -%}
+            {% for target in targets %}
+            - name: {{ target }}
+              weight: {{ weight }}
+              requirements:
+                host-type: {{ target }}
+            {% endfor %}

@@ -16,7 +16,6 @@ class Pelato:
         self.reg_pass = os.getenv('REGISTRY_PASSWORD')
         
     def generate(self, project_dir):
-        print(f"Generating Go code for project {project_dir}")
         code_generator.generate(project_dir, self.registry_url)
         
     def build(self, project_dir):

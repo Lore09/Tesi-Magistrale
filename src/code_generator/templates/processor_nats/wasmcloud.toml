@@ -1,0 +1,9 @@
+name = "{{ name }}"
+language = "tinygo"
+type = "component"
+version = "{{ version }}"
+
+[component]
+wit_world = "default"
+wasm_target = "wasm32-wasip2"
+destination = "build/{{ component_name }}.wasm"

@@ -20,12 +20,19 @@ def __remove_dir_if_exists(dir_path):
 
 def generate(project_dir, registry_url):
     
+    # Check if the project directory is valid
+    if not os.path.exists(f"{project_dir}/workflow.yaml") or not os.path.exists(f"{project_dir}/tasks"):
+        logging.error(f"Project directory is not valid")
+        return
+    
     # Parsing del file di configurazione
     config = __parse_yaml(f"{project_dir}/workflow.yaml")
     
     if config is None:
         logging.error("Error parsing workflow.yaml")
         return
+    
+    print(f"Generating code for project {config['project_name']}")
     
     # Rimozione della cartella di output
     output_dir = f"{project_dir}/gen"
@@ -38,7 +45,6 @@ def generate(project_dir, registry_url):
     for task in config['tasks']:
         
         try:
-            
             task['registry_url'] = registry_url
             template_compiler.handle_task(task, output_dir)
 
