@@ -1,21 +1,20 @@
 project_name: Test
 tasks:
-  - name: Data Aggregation
+  - name: Data Stream test 1
     type: processor_nats
     code: task1.go
     targets:
-      - edge
       - cloud
-    source_topic: temp_sensor
-    dest_topic: aggregated_data
-    component_name: data_aggregation
+    source_topic: test_source
+    dest_topic: test_destination
+    component_name: data_aggregation_test
     version: 1.0.0
   - name: Aiutatemi
-    type: processor_nats
+    type: producer_nats
     code: danano.go
     targets:
       - edge
     source_topic: test
-    dest_topic: temp_sensor
-    component_name: test_producer
+    dest_topic: test_source
+    component_name: test_producer_help
     version: 1.0.0

@@ -1,8 +1,11 @@
 import os
+from dotenv import load_dotenv
 import src.code_generator.generator as code_generator
 import src.wasm_builder.build as wasm_builder
 import src.component_deploy.deploy as deployer
+import src.component_deploy.remove as remover
 import time
+
 
 class Pelato:
     def __init__(self):
@@ -10,6 +13,8 @@ class Pelato:
         self.setup_vars()
         
     def setup_vars(self):
+        
+        load_dotenv()
         
         self.registry_url = os.getenv('REGISTRY_URL')
         self.reg_user = os.getenv('REGISTRY_USER')
@@ -26,6 +31,9 @@ class Pelato:
         
     def deploy(self, project_dir):
         deployer.deploy_components(project_dir, self.nats_host, self.nats_port, self.detached)
+        
+    def remove(self, project_dir):
+        remover.remove_components(project_dir, self.nats_host, self.nats_port, self.detached)
 
     def all(self, project_dir):
         

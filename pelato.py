@@ -1,10 +1,7 @@
 import argparse
 import src
-from dotenv import load_dotenv
-
 
 def main():
-    load_dotenv()
     
     parser = argparse.ArgumentParser(
         description="Generate, build and deploy WASM components written in go"
@@ -20,6 +17,9 @@ def main():
 
     parser_deploy = subparsers.add_parser("deploy", help="Deploy WASM components")
     parser_deploy.add_argument("dir", type=str, help="Project directory")
+    
+    parser_remove = subparsers.add_parser("remove", help="Remove deployed WASM components", aliases=["rm"])
+    parser_remove.add_argument("dir", type=str, help="Project directory")
     
     parser_all = subparsers.add_parser("brush", help="Everything above")
     parser_all.add_argument("dir", type=str, help="Project directory")
@@ -37,6 +37,8 @@ def main():
         pelato.build(args.dir)
     elif args.command == "deploy":
         pelato.deploy(args.dir)
+    elif args.command == "remove":
+        pelato.remove(args.dir)
     elif args.command == "brush":
         pelato.all(args.dir)
     else:
