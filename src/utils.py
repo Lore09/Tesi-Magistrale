@@ -13,7 +13,9 @@ def dump_metrics(metrics, project_dir):
 def load_metrics(project_dir):
     
     if not os.path.exists(f"{project_dir}/metrics.yaml"):
-        return {}
+        return {
+            "runs": []
+        }
     
     with open(f"{project_dir}/metrics.yaml", 'r') as file:
         metrics = yaml.safe_load(file)

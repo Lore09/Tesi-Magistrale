@@ -2,9 +2,12 @@ import docker
 import os
 import logging
 import yaml
+import time
 
-def deploy_components(project_dir, nats_host, nats_port, detached):
+def deploy_components(project_dir, nats_host, nats_port, detached, metrics, metrics_enabled):
 
+    deploy_metrics = {}
+    
     # Check if the project directory is valid
     if not os.path.exists(f"{project_dir}/gen"):
         logging.error(f"Project directory is not valid")
@@ -15,10 +18,13 @@ def deploy_components(project_dir, nats_host, nats_port, detached):
     # Docker client
     client = docker.from_env()
     
+    if metrics_enabled:
+        start_time = time.time()
+    
     # Build the images for the project if they don't exist
     try:
         client.images.get("wash-deploy-image:latest")
-    except docker.errors.ImageNotFound:
+    except:
         
         print(' - Building wash-deploy-image from Dockerfile...')
         client.images.build(
@@ -26,6 +32,8 @@ def deploy_components(project_dir, nats_host, nats_port, detached):
             dockerfile="deploy.Dockerfile",
             tag="wash-deploy-image:latest"
         )
+        if metrics_enabled:
+            deploy_metrics['image_build_time'] = '%.3f'%(time.time() - start_time)
         
     try:
         wait_list = []
@@ -46,6 +54,10 @@ def deploy_components(project_dir, nats_host, nats_port, detached):
         logging.error(f"Error deploying project: {e}")
         return
     
+    if metrics_enabled:
+        deploy_metrics['components_deploy_time'] = '%.3f'%(time.time() - start_time)
+        metrics['deploy'] = deploy_metrics
+        
     print("Project deployed successfully")
     
 def __deploy_wadm(task_dir, client, nats_host, nats_port, detached, wait_list):

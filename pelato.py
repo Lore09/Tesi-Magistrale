@@ -1,6 +1,7 @@
 import argparse
 import src
 import src.utils as ut
+import time
 
 def main():
     
@@ -32,12 +33,12 @@ def main():
     pelato = src.Pelato()
     
     if pelato.metrics_enabled:
-        pelato.metrics = ut.load_metrics(args.dir)
+        pelato.metrics = {}
+        start_time = time.time()
 
     # Esecuzione del comando specificato
     if args.command == "gen":
         pelato.generate(args.dir)
-        pelato.metrics = {}
     elif args.command == "build":
         pelato.build(args.dir)
     elif args.command == "deploy":
@@ -51,7 +52,12 @@ def main():
         return
 
     if pelato.metrics_enabled:
-        ut.dump_metrics(pelato.metrics, args.dir)
+        end_time = time.time()
+        pelato.metrics['time_total'] = '%.3f'%(end_time - start_time)
+        
+        full_metrics = ut.load_metrics(args.dir)
+        full_metrics['runs'].append(pelato.metrics)
+        ut.dump_metrics(full_metrics, args.dir)
         
 if __name__ == "__main__":
     main()

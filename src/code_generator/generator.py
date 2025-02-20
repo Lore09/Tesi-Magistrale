@@ -39,7 +39,7 @@ def generate(project_dir, registry_url, metrics, metrics_enabled):
     print(f"Generating code for project {config['project_name']}")
     
     if metrics_enabled:
-        gen_metrics['n_task'] = len(config['tasks'])
+        metrics['n_task'] = len(config['tasks'])
         start_time = time.time()
     
     # Rimozione della cartella di output
