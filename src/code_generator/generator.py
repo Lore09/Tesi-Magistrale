@@ -3,6 +3,7 @@ import shutil
 import logging
 import os
 import src.code_generator.template_compiler as template_compiler
+import time
 
 def __parse_yaml(yaml_file):
     with open(yaml_file, 'r') as stream:
@@ -18,7 +19,10 @@ def __remove_dir_if_exists(dir_path):
         if os.path.isdir(dir_path):
             shutil.rmtree(dir_path)
 
-def generate(project_dir, registry_url):
+def generate(project_dir, registry_url, metrics, metrics_enabled):
+    
+    gen_metrics = {}
+    start_time = 0
     
     # Check if the project directory is valid
     if not os.path.exists(f"{project_dir}/workflow.yaml") or not os.path.exists(f"{project_dir}/tasks"):
@@ -33,6 +37,10 @@ def generate(project_dir, registry_url):
         return
     
     print(f"Generating code for project {config['project_name']}")
+    
+    if metrics_enabled:
+        gen_metrics['n_task'] = len(config['tasks'])
+        start_time = time.time()
     
     # Rimozione della cartella di output
     output_dir = f"{project_dir}/gen"
@@ -56,3 +64,10 @@ def generate(project_dir, registry_url):
         except Exception as e:
             logging.error(f"Error generating task {task['component_name']}: {e}")
             continue
+        
+    if metrics_enabled:
+        end_time = time.time()
+        gen_metrics['gen_time'] = '%.3f'%(end_time - start_time)
+        metrics['code_gen'] = gen_metrics
+        
+    print("Code generation completed")

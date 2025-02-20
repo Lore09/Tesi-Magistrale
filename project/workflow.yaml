@@ -16,5 +16,32 @@ tasks:
       - edge
     source_topic: test
     dest_topic: test_source
-    component_name: test_producer_help
+    component_name: test_producer_help1
+    version: 1.0.0
+  - name: Aiutatemi
+    type: producer_nats
+    code: danano.go
+    targets:
+      - edge
+    source_topic: test
+    dest_topic: test_source
+    component_name: test_producer_help2
+    version: 1.0.0
+  - name: Aiutatemi
+    type: producer_nats
+    code: danano.go
+    targets:
+      - edge
+    source_topic: test
+    dest_topic: test_source
+    component_name: test_producer_help3
+    version: 1.0.0
+  - name: Aiutatemi
+    type: producer_nats
+    code: danano.go
+    targets:
+      - edge
+    source_topic: test
+    dest_topic: test_source
+    component_name: test_producer_help4
     version: 1.0.0

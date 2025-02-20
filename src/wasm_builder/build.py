@@ -2,8 +2,12 @@ import docker
 import os
 import logging
 import yaml
+import time
 
-def build_project(project_dir, reg_user, reg_pass, detached):
+def build_project(project_dir, reg_user, reg_pass, detached, metrics, metrics_enabled):
+    
+    build_metrics = {}
+    start_time = 0
     
     # Check if the project directory is valid
     if not os.path.exists(f"{project_dir}/gen"):
@@ -14,6 +18,9 @@ def build_project(project_dir, reg_user, reg_pass, detached):
     
     # Docker client
     client = docker.from_env()
+    
+    if metrics_enabled:
+        start_time = time.time()
     
     # Build the images for the project if they don't exist
     try:
@@ -26,6 +33,8 @@ def build_project(project_dir, reg_user, reg_pass, detached):
             dockerfile="build.Dockerfile",
             tag="wash-build-image:latest"
         )
+        if metrics_enabled:
+            build_metrics['image_build_time'] = '%.3f'%(time.time() - start_time)
         
     try:
         wait_list = []
@@ -46,6 +55,10 @@ def build_project(project_dir, reg_user, reg_pass, detached):
         logging.error(f"Error building project: {e}")
         return
     
+    if metrics_enabled:
+        build_metrics['components_build_time'] = '%.3f'%(time.time() - start_time)
+        metrics['build'] = build_metrics
+        
     print("Project built successfully")
     
 def __build_wasm(task_dir, client, reg_user, reg_pass, detached, wait_list):
