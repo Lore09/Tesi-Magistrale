@@ -1,0 +1,18 @@
+runs:
+- build:
+    components_build_time: '36.166'
+    image_build_time: '0.068'
+  code_gen:
+    gen_time: '0.027'
+  deploy:
+    components_deploy_time: '0.988'
+  n_task: 2
+  time_total: '39.191'
+- build:
+    components_build_time: '55.284'
+  code_gen:
+    gen_time: '0.079'
+  deploy:
+    components_deploy_time: '2.189'
+  n_task: 5
+  time_total: '59.563'
