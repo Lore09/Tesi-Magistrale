@@ -70,13 +70,18 @@ def __build_wasm(task_dir, client, reg_user, reg_pass, detached, wait_list):
     oci_url = wadm['spec']['components'][0]['properties']['image']
     name = wadm['spec']['components'][0]['name'] + '-build'
     
+    uid = os.getuid()
+    gid = os.getgid()
+    
     # Build the wasm module
     print(f" - Building WASM module {oci_url}")
     container = client.containers.run(
         "wash-build-image:latest",
         environment=[f'REGISTRY={oci_url}',
                      f'WASH_REG_USER={reg_user}',
-                     f'WASH_REG_PASSWORD={reg_pass}'],
+                     f'WASH_REG_PASSWORD={reg_pass}',
+                     f'HOST_UID={uid}',
+                     f'HOST_GID={gid}'],
         volumes={path: {'bind': '/app', 'mode': 'rw'}},
         remove=True,
         detach=True,

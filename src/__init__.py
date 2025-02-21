@@ -13,7 +13,7 @@ class Pelato:
         
     def setup_vars(self):
         
-        load_dotenv()
+        load_dotenv(override=True)
         
         self.registry_url = os.getenv('REGISTRY_URL')
         self.reg_user = os.getenv('REGISTRY_USER')
