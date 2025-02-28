@@ -39,7 +39,6 @@ runs:
     components_deploy_time: '0.262'
   n_task: 1
   time_total: '26.260'
-- time_total: '0.208'
 - build:
     components_build_time: '32.375'
   code_gen:
@@ -80,7 +79,6 @@ runs:
     components_deploy_time: '2.651'
   n_task: 2
   time_total: '37.785'
-- time_total: '0.348'
 - build:
     components_build_time: '54.529'
   code_gen:
@@ -121,4 +119,83 @@ runs:
     components_deploy_time: '0.806'
   n_task: 5
   time_total: '52.300'
-- time_total: '0.774'
+- build:
+    components_build_time: '75.462'
+  code_gen:
+    gen_time: '0.150'
+  deploy:
+    components_deploy_time: '1.452'
+  n_task: 10
+  time_total: '79.076'
+- build:
+    components_build_time: '75.393'
+  code_gen:
+    gen_time: '0.178'
+  deploy:
+    components_deploy_time: '1.436'
+  n_task: 10
+  time_total: '79.021'
+- build:
+    components_build_time: '77.967'
+  code_gen:
+    gen_time: '0.179'
+  deploy:
+    components_deploy_time: '1.462'
+  n_task: 10
+  time_total: '81.621'
+- build:
+    components_build_time: '77.111'
+  code_gen:
+    gen_time: '0.176'
+  deploy:
+    components_deploy_time: '1.496'
+  n_task: 10
+  time_total: '80.797'
+- build:
+    components_build_time: '78.973'
+  code_gen:
+    gen_time: '0.180'
+  deploy:
+    components_deploy_time: '4.485'
+  n_task: 10
+  time_total: '85.651'
+- build:
+    components_build_time: '122.720'
+  code_gen:
+    gen_time: '0.198'
+  deploy:
+    components_deploy_time: '3.611'
+  n_task: 15
+  time_total: '128.544'
+- build:
+    components_build_time: '134.403'
+  code_gen:
+    gen_time: '0.260'
+  deploy:
+    components_deploy_time: '7.227'
+  n_task: 15
+  time_total: '143.905'
+- build:
+    components_build_time: '134.748'
+  code_gen:
+    gen_time: '0.263'
+  deploy:
+    components_deploy_time: '2.166'
+  n_task: 15
+  time_total: '139.191'
+- build:
+    components_build_time: '153.462'
+  code_gen:
+    gen_time: '0.258'
+  deploy:
+    components_deploy_time: '2.103'
+  n_task: 15
+  time_total: '157.837'
+- build:
+    components_build_time: '137.265'
+  code_gen:
+    gen_time: '0.261'
+  deploy:
+    components_deploy_time: '2.398'
+  n_task: 15
+  time_total: '141.939'
