@@ -1,47 +1,101 @@
 project_name: Test
 tasks:
-  - name: Data Stream test 1
+  - name: Data Stream double value 
     type: processor_nats
-    code: task1.go
+    code: double.go
     targets:
       - cloud
-    source_topic: test_source
-    dest_topic: test_destination
-    component_name: data_aggregation_test
+    source_topic: test_source_data
+    dest_topic: ttest_dest_data
+    component_name: data_double_test
     version: 1.0.0
-  - name: Aiutatemi
-    type: producer_nats
-    code: danano.go
+
+  - name: Data Stream double value 2
+    type: processor_nats
+    code: double.go
     targets:
-      - edge
-    source_topic: test
-    dest_topic: test_source
-    component_name: test_producer_help1
+      - cloud
+    source_topic: test_source_data
+    dest_topic: ttest_dest_data
+    component_name: data_double_test2
     version: 1.0.0
-  - name: Aiutatemi
-    type: producer_nats
-    code: danano.go
+
+  - name: Data Stream double value 3
+    type: processor_nats
+    code: double.go
     targets:
-      - edge
-    source_topic: test
-    dest_topic: test_source
-    component_name: test_producer_help2
+      - cloud
+    source_topic: test_source_data
+    dest_topic: ttest_dest_data
+    component_name: data_double_test3
     version: 1.0.0
-  - name: Aiutatemi
-    type: producer_nats
-    code: danano.go
+
+  - name: Data Stream double value 4
+    type: processor_nats
+    code: double.go
     targets:
-      - edge
-    source_topic: test
-    dest_topic: test_source
-    component_name: test_producer_help3
+      - cloud
+    source_topic: test_source_data
+    dest_topic: ttest_dest_data
+    component_name: data_double_test4
     version: 1.0.0
-  - name: Aiutatemi
-    type: producer_nats
-    code: danano.go
+
+  - name: Data Stream double value 5
+    type: processor_nats
+    code: double.go
     targets:
-      - edge
-    source_topic: test
-    dest_topic: test_source
-    component_name: test_producer_help4
+      - cloud
+    source_topic: test_source_data
+    dest_topic: ttest_dest_data
+    component_name: data_double_test5
+    version: 1.0.0
+
+  - name: Data Stream double value 11
+    type: processor_nats
+    code: double.go
+    targets:
+      - cloud
+    source_topic: test_source_data
+    dest_topic: ttest_dest_data
+    component_name: data_double_test11
+    version: 1.0.0
+
+  - name: Data Stream double value 12
+    type: processor_nats
+    code: double.go
+    targets:
+      - cloud
+    source_topic: test_source_data
+    dest_topic: ttest_dest_data
+    component_name: data_double_test12
+    version: 1.0.0
+
+  - name: Data Stream double value 13
+    type: processor_nats
+    code: double.go
+    targets:
+      - cloud
+    source_topic: test_source_data
+    dest_topic: ttest_dest_data
+    component_name: data_double_test13
+    version: 1.0.0
+
+  - name: Data Stream double value 14
+    type: processor_nats
+    code: double.go
+    targets:
+      - cloud
+    source_topic: test_source_data
+    dest_topic: ttest_dest_data
+    component_name: data_double_test14
+    version: 1.0.0
+
+  - name: Data Stream double value 15
+    type: processor_nats
+    code: double.go
+    targets:
+      - cloud
+    source_topic: test_source_data
+    dest_topic: ttest_dest_data
+    component_name: data_double_test15
     version: 1.0.0
