@@ -2,6 +2,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import yaml
 import pandas as pd
+import numpy as np
+import os
 
 # Function to read and parse the file
 def read_metrics(file_path):
@@ -28,29 +30,59 @@ for run in runs:
 # Convert to DataFrame
 df = pd.DataFrame(data)
 
-# Function to plot and add median labels
-def plot_metric(metric, filename, color):
-    subset = df[df['Type'] == metric]
-    plt.figure(figsize=(8, 6))
-    ax = sns.boxplot(x='Task', y='Time', data=subset, color=color)
+# Make sure the benchmark directory exists
+os.makedirs('benchmark', exist_ok=True)
 
-    # Add median labels
+# Function to plot boxplot
+def plot_boxplot(metric, filename, color):
+    subset = df[df['Type'] == metric]
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x='Task', y='Time', data=subset, color=color, showfliers=False)
+
+    # Label median values
     medians = subset.groupby('Task')['Time'].median()
     for i, task in enumerate(medians.index):
         median_value = medians[task]
-        ax.text(i, median_value, f'{median_value:.3f}', ha='center', va='center',
-                fontsize=10, color='white', bbox=dict(facecolor='black', alpha=0.6, boxstyle='round,pad=0.3'))
+        plt.text(i, median_value, f'{median_value:.3f}', ha='center', va='center', fontsize=10, color='white', 
+                 bbox=dict(facecolor='black', alpha=0.6, boxstyle='round,pad=0.3'))
+    
+    plt.ylabel('Time (seconds)')
+    plt.grid(True, linestyle='--', alpha=0.7)
+    plt.tight_layout()
+    plt.savefig(f'benchmark/{filename}')
+    plt.close()
 
-    plt.title(f'{metric} by Number of Tasks')
+# Function to plot line plot with confidence intervals
+def plot_lineplot(metric, filename, color):
+    subset = df[df['Type'] == metric]
+    plt.figure(figsize=(10, 6))
+    sns.lineplot(x='Task', y='Time', data=subset, errorbar=('ci', 95), color=color, linewidth=2, marker='o')
+
+    # Fill missing x-axis values
+    min_task = subset['Task'].min()
+    max_task = subset['Task'].max()
+    all_tasks = np.arange(min_task, max_task + 1)
+    plt.xticks(all_tasks)
+
+    # Label points
+    for i, row in subset.groupby('Task')['Time'].median().reset_index().iterrows():
+        plt.text(row['Task'], row['Time'], f'{row["Time"]:.3f}', ha='center', va='bottom', fontsize=10)
+
     plt.xlabel('Number of Tasks')
     plt.ylabel('Time (seconds)')
+    plt.grid(True, linestyle='--', alpha=0.7)
     plt.tight_layout()
-    plt.savefig(filename)
+    plt.savefig(f'benchmark/{filename}')
     plt.close()
 
 # Plot each metric separately
-plot_metric('Build Time', 'res/build_time_boxplot.png', 'skyblue')
-plot_metric('Generation Time', 'res/gen_time_boxplot.png', 'lightgreen')
-plot_metric('Deployment Time', 'res/deploy_time_boxplot.png', 'salmon')
+plot_boxplot('Build Time', 'build_time_boxplot.png', 'skyblue')
+plot_lineplot('Build Time', 'build_time_lineplot.png', 'skyblue')
 
-print('Plots saved successfully!')
+plot_boxplot('Generation Time', 'gen_time_boxplot.png', 'lightgreen')
+plot_lineplot('Generation Time', 'gen_time_lineplot.png', 'lightgreen')
+
+plot_boxplot('Deployment Time', 'deploy_time_boxplot.png', 'salmon')
+plot_lineplot('Deployment Time', 'deploy_time_lineplot.png', 'salmon')
+
+print('Plots saved successfully in "benchmark" directory!')
