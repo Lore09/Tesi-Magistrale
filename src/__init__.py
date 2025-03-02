@@ -34,6 +34,7 @@ class Pelato:
         deployer.deploy_components(project_dir, self.nats_host, self.nats_port, self.detached, self.metrics, self.metrics_enabled)
         
     def remove(self, project_dir):
+        self.metrics_enabled = False
         remover.remove_components(project_dir, self.nats_host, self.nats_port, self.detached)
 
     def all(self, project_dir):

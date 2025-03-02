@@ -16,6 +16,9 @@ def build_project(project_dir, reg_user, reg_pass, detached, metrics, metrics_en
     
     print('Building WASM components')
     
+    os.environ["DOCKER_CLIENT_TIMEOUT"] = "120"
+    os.environ["DOCKER_TIMEOUT"] = "120"
+    
     # Docker client
     client = docker.from_env()
     
