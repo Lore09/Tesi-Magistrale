@@ -1,13 +1,13 @@
 project_name: Test
 tasks:
-  - name: Data Stream double value 
+  - name: Data Stream double value 1
     type: processor_nats
     code: double.go
     targets:
       - cloud
     source_topic: test_source_data
     dest_topic: ttest_dest_data
-    component_name: data_double_test
+    component_name: data_double_test1
     version: 1.0.0
 
   - name: Data Stream double value 2
@@ -50,52 +50,52 @@ tasks:
     component_name: data_double_test5
     version: 1.0.0
 
-  - name: Data Stream double value 11
+  - name: Data Stream double value 6
     type: processor_nats
     code: double.go
     targets:
       - cloud
     source_topic: test_source_data
     dest_topic: ttest_dest_data
-    component_name: data_double_test11
+    component_name: data_double_test6
     version: 1.0.0
 
-  - name: Data Stream double value 12
+  - name: Data Stream double value 7
     type: processor_nats
     code: double.go
     targets:
       - cloud
     source_topic: test_source_data
     dest_topic: ttest_dest_data
-    component_name: data_double_test12
+    component_name: data_double_test7
     version: 1.0.0
 
-  - name: Data Stream double value 13
+  - name: Data Stream double value 8
     type: processor_nats
     code: double.go
     targets:
       - cloud
     source_topic: test_source_data
     dest_topic: ttest_dest_data
-    component_name: data_double_test13
+    component_name: data_double_test8
     version: 1.0.0
 
-  - name: Data Stream double value 14
+  - name: Data Stream double value 9
     type: processor_nats
     code: double.go
     targets:
       - cloud
     source_topic: test_source_data
     dest_topic: ttest_dest_data
-    component_name: data_double_test14
+    component_name: data_double_test9
     version: 1.0.0
 
-  - name: Data Stream double value 15
+  - name: Data Stream double value 10
     type: processor_nats
     code: double.go
     targets:
       - cloud
     source_topic: test_source_data
     dest_topic: ttest_dest_data
-    component_name: data_double_test15
+    component_name: data_double_test10
     version: 1.0.0
