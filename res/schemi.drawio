@@ -370,9 +370,6 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="DtmFpPrAD--phJ0PhT5j-1" value="" style="rounded=1;whiteSpace=wrap;html=1;sketch=0;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Lucida Console;fontSize=11;" vertex="1" parent="1">
-          <mxGeometry y="100" width="820" height="410" as="geometry" />
-        </mxCell>
         <mxCell id="DtmFpPrAD--phJ0PhT5j-57" value="&lt;div&gt;Generated code&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;for each task&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Lucida Console;fontSize=20;verticalAlign=top;" vertex="1" parent="1">
           <mxGeometry x="220" y="270" width="180" height="230" as="geometry" />
         </mxCell>
