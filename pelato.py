@@ -20,10 +20,10 @@ def main():
     parser_deploy = subparsers.add_parser("deploy", help="Deploy WASM components")
     parser_deploy.add_argument("dir", type=str, help="Project directory")
     
-    parser_remove = subparsers.add_parser("remove", help="Remove deployed WASM components", aliases=["rm"])
+    parser_remove = subparsers.add_parser("remove", help="Remove deployed WASM components")
     parser_remove.add_argument("dir", type=str, help="Project directory")
     
-    parser_all = subparsers.add_parser("brush", help="Everything above")
+    parser_all = subparsers.add_parser("brush", help="Starts the pipeline: gen -> build -> deploy")
     parser_all.add_argument("dir", type=str, help="Project directory")
 
     # Parsing degli argomenti
