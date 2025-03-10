@@ -1,0 +1,321 @@
+runs:
+- build:
+    components_build_time: '22.867'
+  code_gen:
+    gen_time: '0.018'
+  deploy:
+    components_deploy_time: '0.506'
+  n_task: 1
+  time_total: '25.401'
+- build:
+    components_build_time: '23.185'
+  code_gen:
+    gen_time: '0.024'
+  deploy:
+    components_deploy_time: '0.239'
+  n_task: 1
+  time_total: '25.458'
+- build:
+    components_build_time: '24.908'
+  code_gen:
+    gen_time: '0.018'
+  deploy:
+    components_deploy_time: '0.227'
+  n_task: 1
+  time_total: '27.164'
+- build:
+    components_build_time: '24.003'
+  code_gen:
+    gen_time: '0.019'
+  deploy:
+    components_deploy_time: '0.357'
+  n_task: 1
+  time_total: '26.389'
+- build:
+    components_build_time: '23.964'
+  code_gen:
+    gen_time: '0.024'
+  deploy:
+    components_deploy_time: '0.262'
+  n_task: 1
+  time_total: '26.260'
+- build:
+    components_build_time: '32.375'
+  code_gen:
+    gen_time: '0.032'
+  deploy:
+    components_deploy_time: '0.375'
+  n_task: 2
+  time_total: '34.793'
+- build:
+    components_build_time: '34.484'
+  code_gen:
+    gen_time: '0.037'
+  deploy:
+    components_deploy_time: '0.353'
+  n_task: 2
+  time_total: '36.885'
+- build:
+    components_build_time: '33.304'
+  code_gen:
+    gen_time: '0.042'
+  deploy:
+    components_deploy_time: '0.575'
+  n_task: 2
+  time_total: '35.931'
+- build:
+    components_build_time: '36.998'
+  code_gen:
+    gen_time: '0.041'
+  deploy:
+    components_deploy_time: '0.337'
+  n_task: 2
+  time_total: '39.387'
+- build:
+    components_build_time: '33.088'
+  code_gen:
+    gen_time: '0.035'
+  deploy:
+    components_deploy_time: '2.651'
+  n_task: 2
+  time_total: '37.785'
+- build:
+    components_build_time: '54.529'
+  code_gen:
+    gen_time: '0.073'
+  deploy:
+    components_deploy_time: '0.757'
+  n_task: 5
+  time_total: '57.370'
+- build:
+    components_build_time: '50.777'
+  code_gen:
+    gen_time: '0.092'
+  deploy:
+    components_deploy_time: '0.786'
+  n_task: 5
+  time_total: '53.668'
+- build:
+    components_build_time: '53.003'
+  code_gen:
+    gen_time: '0.089'
+  deploy:
+    components_deploy_time: '0.777'
+  n_task: 5
+  time_total: '55.882'
+- build:
+    components_build_time: '48.483'
+  code_gen:
+    gen_time: '0.086'
+  deploy:
+    components_deploy_time: '2.236'
+  n_task: 5
+  time_total: '52.817'
+- build:
+    components_build_time: '49.394'
+  code_gen:
+    gen_time: '0.088'
+  deploy:
+    components_deploy_time: '0.806'
+  n_task: 5
+  time_total: '52.300'
+- build:
+    components_build_time: '75.462'
+  code_gen:
+    gen_time: '0.150'
+  deploy:
+    components_deploy_time: '1.452'
+  n_task: 10
+  time_total: '79.076'
+- build:
+    components_build_time: '75.393'
+  code_gen:
+    gen_time: '0.178'
+  deploy:
+    components_deploy_time: '1.436'
+  n_task: 10
+  time_total: '79.021'
+- build:
+    components_build_time: '77.967'
+  code_gen:
+    gen_time: '0.179'
+  deploy:
+    components_deploy_time: '1.462'
+  n_task: 10
+  time_total: '81.621'
+- build:
+    components_build_time: '77.111'
+  code_gen:
+    gen_time: '0.176'
+  deploy:
+    components_deploy_time: '1.496'
+  n_task: 10
+  time_total: '80.797'
+- build:
+    components_build_time: '78.973'
+  code_gen:
+    gen_time: '0.180'
+  deploy:
+    components_deploy_time: '4.485'
+  n_task: 10
+  time_total: '85.651'
+- build:
+    components_build_time: '122.720'
+  code_gen:
+    gen_time: '0.198'
+  deploy:
+    components_deploy_time: '3.611'
+  n_task: 15
+  time_total: '128.544'
+- build:
+    components_build_time: '134.403'
+  code_gen:
+    gen_time: '0.260'
+  deploy:
+    components_deploy_time: '7.227'
+  n_task: 15
+  time_total: '143.905'
+- build:
+    components_build_time: '134.748'
+  code_gen:
+    gen_time: '0.263'
+  deploy:
+    components_deploy_time: '2.166'
+  n_task: 15
+  time_total: '139.191'
+- build:
+    components_build_time: '153.462'
+  code_gen:
+    gen_time: '0.258'
+  deploy:
+    components_deploy_time: '2.103'
+  n_task: 15
+  time_total: '157.837'
+- build:
+    components_build_time: '137.265'
+  code_gen:
+    gen_time: '0.261'
+  deploy:
+    components_deploy_time: '2.398'
+  n_task: 15
+  time_total: '141.939'
+- build:
+    components_build_time: '165.313'
+  code_gen:
+    gen_time: '0.309'
+  deploy:
+    components_deploy_time: '2.683'
+  n_task: 20
+  time_total: '170.321'
+- build:
+    components_build_time: '167.155'
+  code_gen:
+    gen_time: '0.239'
+  deploy:
+    components_deploy_time: '4.490'
+  n_task: 20
+  time_total: '173.900'
+- build:
+    components_build_time: '182.751'
+  code_gen:
+    gen_time: '0.311'
+  deploy:
+    components_deploy_time: '8.294'
+  n_task: 20
+  time_total: '193.370'
+- build:
+    components_build_time: '169.074'
+  code_gen:
+    gen_time: '0.318'
+  deploy:
+    components_deploy_time: '2.793'
+  n_task: 20
+  time_total: '174.200'
+- build:
+    components_build_time: '185.801'
+  code_gen:
+    gen_time: '0.311'
+  deploy:
+    components_deploy_time: '6.334'
+  n_task: 20
+  time_total: '194.461'
+- build:
+    components_build_time: '132.133'
+  code_gen:
+    gen_time: '0.255'
+  deploy:
+    components_deploy_time: '1.993'
+  n_task: 15
+  time_total: '136.396'
+- build:
+    components_build_time: '128.424'
+  code_gen:
+    gen_time: '0.235'
+  deploy:
+    components_deploy_time: '3.782'
+  n_task: 15
+  time_total: '134.454'
+- build:
+    components_build_time: '132.120'
+  code_gen:
+    gen_time: '0.242'
+  deploy:
+    components_deploy_time: '2.029'
+  n_task: 15
+  time_total: '136.405'
+- build:
+    components_build_time: '134.853'
+  code_gen:
+    gen_time: '0.237'
+  deploy:
+    components_deploy_time: '1.993'
+  n_task: 15
+  time_total: '139.097'
+- build:
+    components_build_time: '132.856'
+  code_gen:
+    gen_time: '0.247'
+  deploy:
+    components_deploy_time: '2.096'
+  n_task: 15
+  time_total: '137.214'
+- build:
+    components_build_time: '86.453'
+  code_gen:
+    gen_time: '0.180'
+  deploy:
+    components_deploy_time: '3.203'
+  n_task: 10
+  time_total: '91.850'
+- build:
+    components_build_time: '82.633'
+  code_gen:
+    gen_time: '0.164'
+  deploy:
+    components_deploy_time: '1.437'
+  n_task: 10
+  time_total: '86.247'
+- build:
+    components_build_time: '84.098'
+  code_gen:
+    gen_time: '0.157'
+  deploy:
+    components_deploy_time: '1.326'
+  n_task: 10
+  time_total: '87.594'
+- build:
+    components_build_time: '78.015'
+  code_gen:
+    gen_time: '0.163'
+  deploy:
+    components_deploy_time: '1.487'
+  n_task: 10
+  time_total: '81.678'
+- build:
+    components_build_time: '80.177'
+  code_gen:
+    gen_time: '0.167'
+  deploy:
+    components_deploy_time: '3.417'
+  n_task: 10
+  time_total: '85.774'
