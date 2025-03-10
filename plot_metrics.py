@@ -12,7 +12,7 @@ def read_metrics(file_path):
     return data['runs']
 
 # Read metrics from the file
-file_path = 'project/metrics.yaml'  # Replace with your file path
+file_path = 'res/metrics-parallel.yaml'  # Replace with your file path
 runs = read_metrics(file_path)
 
 # Flatten data into a list of dictionaries
@@ -26,6 +26,9 @@ for run in runs:
 
     if 'deploy' in run:
         data.append({'Task': run['n_task'], 'Type': 'Deployment Time', 'Time': float(run['deploy']['components_deploy_time'])})
+    
+    if 'time_total' in run:
+        data.append({'Task': run['n_task'], 'Type': 'Total Time', 'Time': float(run['time_total'])})
 
 # Convert to DataFrame
 df = pd.DataFrame(data)
@@ -91,16 +94,20 @@ def plot_barplot(metric, filename, color):
     plt.close()
 
 # Plot each metric separately
-plot_boxplot('Build Time', 'build_time_boxplot.png', 'skyblue')
-plot_lineplot('Build Time', 'build_time_lineplot.png', 'skyblue')
+#plot_boxplot('Build Time', 'build_time_boxplot.png', 'skyblue')
+#plot_lineplot('Build Time', 'build_time_lineplot.png', 'skyblue')
 plot_barplot('Build Time', 'build_time_barplot.png', 'skyblue')
 
-plot_boxplot('Generation Time', 'gen_time_boxplot.png', 'lightgreen')
-plot_lineplot('Generation Time', 'gen_time_lineplot.png', 'lightgreen')
+#plot_boxplot('Generation Time', 'gen_time_boxplot.png', 'lightgreen')
+#plot_lineplot('Generation Time', 'gen_time_lineplot.png', 'lightgreen')
 plot_barplot('Generation Time', 'gen_time_barplot.png', 'lightgreen')
 
-plot_boxplot('Deployment Time', 'deploy_time_boxplot.png', 'salmon')
-plot_lineplot('Deployment Time', 'deploy_time_lineplot.png', 'salmon')
+#plot_boxplot('Deployment Time', 'deploy_time_boxplot.png', 'salmon')
+#plot_lineplot('Deployment Time', 'deploy_time_lineplot.png', 'salmon')
 plot_barplot('Deployment Time', 'deploy_time_barplot.png', 'salmon')
+
+#plot_boxplot('Total Time', 'total_time_boxplot.png', 'purple')
+#plot_lineplot('Total Time', 'total_time_lineplot.png', 'purple')
+plot_barplot('Total Time', 'total_time_barplot.png', 'orange')
 
 print('Plots saved successfully in "benchmark" directory!')
