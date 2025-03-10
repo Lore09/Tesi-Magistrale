@@ -4,6 +4,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"io"
 
 	logger "gitea.rebus.ninja/lore/wasm-nats-producer-client/gen/wasi/logging/logging"
 	"gitea.rebus.ninja/lore/wasm-nats-producer-client/gen/wasmcloud/messaging/consumer"
@@ -30,14 +31,18 @@ func init() {
 
 func handleHttp(w http.ResponseWriter, r *http.Request) {
 
-	// get body as string
-	if handleRequest(r.FormValue("data")) {
-		fmt.Fprintf(w, "Message sent!\n")
-	} else {
-		fmt.Fprintf(w, "Error\n") 
+	value, err := io.ReadAll(r.Body)
+
+	if err != nil {
+		fmt.Fprintf(w, "Error, invalid request body\n") 
+		return
 	}
 
-	// send response
+	if handleRequest(string(value)) {
+		fmt.Fprintf(w, "Message sent!\n")
+	} else {
+		fmt.Fprintf(w, "Error, coudln't send message\n")
+	}
 }
 
 func handleMessage(msg types.BrokerMessage) cm.Result[string, struct{}, string]{

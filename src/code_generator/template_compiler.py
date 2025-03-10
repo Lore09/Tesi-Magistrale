@@ -8,7 +8,7 @@ def handle_task(task, output_dir):
     try:
     
         match task['type']:
-            case 'producer_nats':
+            case 'http_producer_nats':
                 __generate_producer(task, output_dir)
             case 'processor_nats':
                 __generate_processor(task, output_dir)
