@@ -28,12 +28,12 @@ def read_metrics(file_path, label):
     return extracted_data
 
 # Paths for the two metric files
-file_path_1 = 'project/metrics.yaml'  # First metrics file
-file_path_2 = 'auga/metrics.yaml'  # Second metrics file
+file_path_1 = 'res/metrics/metrics-parallel-nats.yaml'  # First metrics file
+file_path_2 = 'res/metrics/metrics-sequential.yaml'  # Second metrics file
 
 # Read and combine the data
-data1 = read_metrics(file_path_1, 'Parallel')
-data2 = read_metrics(file_path_2, 'Sequential')
+data1 = read_metrics(file_path_1, 'Esecuzione Parallelizzata')
+data2 = read_metrics(file_path_2, 'Esecuzione Sequenziale')
 
 df = pd.DataFrame(data1 + data2)
 
@@ -71,14 +71,20 @@ def plot_lineplot(metric, filename):
 def plot_barplot(metric, filename):
     subset = df[df['Type'] == metric]
     plt.figure(figsize=(10, 6))
-    sns.barplot(x='Task', y='Time', hue='Source', data=subset, errorbar=('ci', 95))
+    
+    sns.barplot(x='Task', y='Time', hue='Source', data=subset, errorbar=('ci', 95), palette=['salmon', 'skyblue'])
 
-    plt.ylabel('Time (seconds)')
+    plt.xlabel('Task', fontsize=14)  # Aumenta la dimensione del font dell'asse X
+    plt.ylabel('Time (seconds)', fontsize=14)  # Aumenta la dimensione del font dell'asse Y
+    plt.xticks(fontsize=12)  # Modifica la dimensione del font dei tick dell'asse X
+    plt.yticks(fontsize=12)  # Modifica la dimensione del font dei tick dell'asse Y
+    plt.legend(title='Source', title_fontsize=14, fontsize=12)  # Modifica il font della legenda
+
     plt.grid(True, linestyle='--', alpha=0.7)
-    plt.legend(title='Source')
     plt.tight_layout()
     plt.savefig(f'benchmark/{filename}')
     plt.close()
+
 
 # Generate plots for each metric
 metrics = ['Build Time', 'Generation Time', 'Deployment Time', 'Total Time']
