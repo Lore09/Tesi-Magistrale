@@ -1,0 +1,162 @@
+\usepackage{array} % per tabelle
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{changepage}
+\usepackage[export]{adjustbox}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb,amsmath,color}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{standalone}
+\usepackage{changepage}
+\usepackage{wrapfig}
+
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{color}
+\usepackage[nottoc]{tocbibind}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{amssymb}
+\usepackage{multicol}
+
+\usepackage{pdfpages}
+
+\usepackage{placeins} %for floatBarrier
+\usepackage{dirtytalk}
+
+\addtolength{\skip\footins}{2pc plus 5pt}
+
+\usepackage{hyperref}
+
+\hypersetup{
+    citecolor=black,
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=black,
+    pdftitle={Tesi Lorenzo Venerandi}
+    }
+    
+\usepackage{minted}
+\usemintedstyle{manni}
+
+\newcommand\myemptypage{
+    \null
+    \thispagestyle{empty}
+    \newpage
+}
+
+\usepackage{color}
+\usepackage{listings}
+\usepackage{enumitem}
+
+\lstdefinelanguage{Dockerfile}
+{
+  morekeywords={FROM, RUN, CMD, LABEL, MAINTAINER, EXPOSE, ENV, ADD, COPY,
+    ENTRYPOINT, VOLUME, USER, WORKDIR, ARG, ONBUILD, STOPSIGNAL, HEALTHCHECK,
+    SHELL},
+  morecomment=[l]{\#},
+  morestring=[b]"
+}
+
+\newcommand\YAMLcolonstyle{\color{black}\mdseries}
+\newcommand\YAMLkeystyle{\color{red}\bfseries}
+\newcommand\YAMLvaluestyle{\color{black}\mdseries}
+
+\lstdefinelanguage{yaml}
+{
+  keywords={true,false,null,y,n},                      % assuming a key comes first
+  sensitive=false,
+  comment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  moredelim=[l][\color{orange}]{\&},
+  moredelim=[l][\color{red}]{*},
+  identifierstyle=\color{red},
+  moredelim=**[il][\
+  {:}\YAMLvaluestyle]{:},   % switch to value style at :
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{Go}{
+  % Keywords as defined in the language grammar
+  morekeywords=[1]{%
+    break,default,func,interface,select,case,defer,go,map,%
+    struct,chan,else,goto,package,switch,const,fallthrough,%
+    if,range,type, continue,for,import,return,var},
+  % Built-in functions
+  morekeywords=[2]{%
+    append,cap,close,complex,copy,delete,imag,%
+    len,make,new,panic,print,println,real,recover},
+  % Pre-declared types
+  morekeywords=[3]{%
+    bool,byte,complex64,complex128,error,float32,float64,%
+    int,int8,int16,int32,int64,rune,string,%
+    uint,uint8,uint16,uint32,uint64,uintptr},
+  % Constants and zero value
+  morekeywords=[4]{true,false,iota,nil},
+  % Strings : "foo", 'bar', `baz`
+  morestring=[b]{"},
+  morestring=[b]{'},
+  morestring=[b]{`},
+  % Comments : /* comment */ and // comment
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  % Options
+  sensitive=false
+}
+
+\lstset{
+    columns=flexible,
+    keepspaces=true,
+    showstringspaces=false,
+    basicstyle=\small\ttfamily,
+    commentstyle=\color{gray},
+    keywordstyle=\color{purple},
+    stringstyle=\color{blue},
+    tabsize=2,
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
+\usepackage{pgfplots}
+\usepackage{dirtree}
+
+\usepackage{fancyhdr}
+% Stile di pagina
+\pagestyle{fancy}
+\definecolor{LightGray}{gray}{0.9}
+%\usemintedstyle{manni}
+
+\fancyhf{}
+\fancyhead[LE]{\nouppercase{\rightmark\hfill\leftmark}}
+\fancyhead[RO]{\nouppercase{\leftmark\hfill}}
+\fancyfoot[LE,RO]{\hfill\thepage\hfill}
+
+
+% Definizione colori
+\definecolor{opal}{rgb}{0.66,0.76,0.74}
+\definecolor{uclablue}{rgb}{0.33, 0.41, 0.58}
+
+% Stile dei titoli dei capitoli
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]
+{\Huge\bfseries}
+{\thechapter\hsp\textcolor{gray75}{}\hsp}
+{0pt}
+{\Huge\bfseries}
+
+
+\renewcommand{\contentsname}{Indice}
+
+\setlength{\arrayrulewidth}{0.5mm}
+\setlength{\tabcolsep}{20pt}
+\renewcommand{\arraystretch}{1.8}
+\setlength{\parindent}{0cm}%no indent

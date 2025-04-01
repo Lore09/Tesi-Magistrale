@@ -1,0 +1,101 @@
+\documentclass[12pt]{report}
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm, includefoot, includehead]{geometry}
+
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{alphabeta}
+
+\input{settings}
+
+% FRONTESPIZIO
+
+\textwidth=450pt\oddsidemargin=0pt
+\begin{document}
+\begin{titlepage}
+\begin{center}
+{{\Large{\textsc{Alma Mater Studiorum $\cdot$ Universit\`a di
+Bologna}}}} \rule[0.1cm]{15.8cm}{0.1mm}
+\rule[0.5cm]{15.8cm}{0.6mm}
+{\small{\bf SCUOLA DI INGEGNERIA E ARCHITETTURA\\
+Corso di Laurea Magistrale in Ingegneria Informatica }}
+\end{center}
+\vspace{15mm}
+\begin{center}
+{\LARGE{\bf Automazione e Orchestrazione}}\\
+\vspace{5mm}
+{\LARGE{\bf di Moduli WebAssembly}}\\
+\vspace{4mm}
+{\LARGE{\bf nell'Edge-Cloud Continuum}}\\
+\end{center}
+\vspace{40mm}
+\par
+\noindent
+\begin{minipage}[t]{0.47\textwidth}
+{\large{\bf Relatore:\\
+Chiar.mo Prof.\\
+Marco di Felice}}
+\vspace{1cm}
+\end{minipage}
+\\
+\begin{minipage}[t]{0.47\textwidth}
+{\large{\bf Correlatori:\\
+Ivan Zyrianoff}}
+
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.47\textwidth}\raggedleft
+{\large{\bf Candidato:\\
+Lorenzo Venerandi}}
+\end{minipage}
+\vspace{20mm}
+\begin{center}
+{\large{\bf Sessione 5\\
+Anno Accademico 2023-2024}}
+\end{center}
+\end{titlepage}
+
+
+\myemptypage
+% Abstract goes here
+\include{_abstract}
+
+\setcounter{page}{1}
+\tableofcontents
+\newpage
+
+%All other files
+
+\chapter{Introduzione}
+\input{0_introduction.tex}
+
+\chapter{Stato dell'arte}
+\input{1_state_of_the_art.tex}
+
+\chapter{Architettura}
+\input{2_architecture}
+
+\chapter{Generazione}
+\input{3_code_generation}
+
+\chapter{Build}
+\input{4_component_build}
+
+\chapter{Deployment}
+\input{5_deployment}
+
+\chapter{Valutazione performance}
+\input{6_performance_evaluation}
+
+\chapter{Conclusioni}
+\input{7_conclusion}
+
+\listoffigures
+\listoftables
+\lstlistoflistings
+
+\bibliographystyle{plain}
+\bibliography{bibfile}
+
+\include{8_ringraziamenti}
+
+\end{document}
